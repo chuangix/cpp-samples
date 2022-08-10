@@ -24,7 +24,7 @@ void echoCharacter()
     char c;
     cout << "Input a character:";
     cin.get(c);
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');  //< @attention Clear redundant more than one character
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); //< @attention Clear redundant more than one character
     if (cin.bad())
     {
         cout << "!! FATAL INPUT !!" << endl;
@@ -45,7 +45,7 @@ void echoInteger()
     int i;
     cout << "Input an integer:";
     cin >> i;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');  //< @attention Clear redundant content like fraction
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); //< @attention Clear redundant content like fraction
     if (cin.bad())
     {
         cout << "!! FATAL INPUT !!" << endl;
@@ -66,7 +66,7 @@ void echoString()
     string s;
     cout << "Input a string:";
     cin >> s;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');  //< @attention Clear redundant fragment splitted by SPACE or TAB
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); //< @attention Clear redundant fragment splitted by SPACE or TAB
     if (cin.bad())
     {
         cout << "!! FATAL INPUT !!" << endl;
