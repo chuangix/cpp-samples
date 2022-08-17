@@ -16,6 +16,7 @@ int main()
     int64_t i64;
     float f;
     double d;
+    bool b;
     cout << "The size of \"char\":" << sizeof(c) << endl;
     cout << "The size of \"uint8_t\":" << sizeof(u8) << endl;
     cout << "The size of \"uint16_t\":" << sizeof(u16) << endl;
@@ -25,5 +26,6 @@ int main()
     cout << "The size of \"int16_t\":" << sizeof(i16) << endl;
     cout << "The size of \"int32_t\":" << sizeof(i32) << endl;
     cout << "The size of \"int64_t\":" << sizeof(i64) << endl;
+    cout << "The size of \"bool\":" << sizeof(bool) << endl;
     return 0;
 }
