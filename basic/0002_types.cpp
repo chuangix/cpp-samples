@@ -82,7 +82,23 @@ void showBuiltIn() {
        << endl;
 }
 
-void showUserDefined() {}
+void showUserDefined() {
+  enum class E : int16_t { Red = -3, Green, Blue = 6, White };
+  E red = E::Red;
+  E green = E::Green;
+  E blue = E::Blue;
+  E white = E::White;
+  cout << "The content of \"enum\" type E:{" << endl;
+  cout << "\tRed:" << static_cast<int16_t>(E::Red) << endl;
+  cout << "\tGreen:" << static_cast<int16_t>(E::Green) << endl;
+  cout << "\tBlue:" << static_cast<int16_t>(E::Blue) << endl;
+  cout << "\tWhite:" << static_cast<int16_t>(E::White) << endl;
+  cout << "}" << endl;
+  cout << "The value of \"enum\" red:" << static_cast<int16_t>(red) << endl;
+  cout << "The value of \"enum\" green:" << static_cast<int16_t>(green) << endl;
+  cout << "The value of \"enum\" blue:" << static_cast<int16_t>(blue) << endl;
+  cout << "The value of \"enum\" white:" << static_cast<int16_t>(white) << endl;
+}
 
 void showFunctions() {}
 
