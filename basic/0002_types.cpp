@@ -82,13 +82,23 @@ void showBuiltIn() {
        << endl;
 }
 
+void showEnum();
+void showVariant();
+void showStruct();
+void showClass();
+
 void showUserDefined() {
+  showEnum();
+  showStruct();
+}
+
+void showEnum() {
   enum class E : int16_t { Red = -3, Green, Blue = 6, White };
   E red = E::Red;
   E green = E::Green;
   E blue = E::Blue;
   E white = E::White;
-  cout << "The content of \"enum\" type E:{" << endl;
+  cout << "The content of \"enum\" type \"E\":{" << endl;
   cout << "\tRed:" << static_cast<int16_t>(E::Red) << endl;
   cout << "\tGreen:" << static_cast<int16_t>(E::Green) << endl;
   cout << "\tBlue:" << static_cast<int16_t>(E::Blue) << endl;
@@ -99,6 +109,57 @@ void showUserDefined() {
   cout << "The value of \"enum\" blue:" << static_cast<int16_t>(blue) << endl;
   cout << "The value of \"enum\" white:" << static_cast<int16_t>(white) << endl;
 }
+
+void showVariant() {}
+
+void showStruct() {
+  struct S1 {
+    uint32_t a;
+    uint8_t b;
+    uint8_t c;
+  };
+  struct S2 {
+    uint8_t a;
+    uint8_t b;
+    uint32_t c;
+  };
+  struct S3 {
+    uint8_t a;
+    uint32_t b;
+    uint8_t c;
+  };
+  struct S4 {
+    uint32_t a;
+    uint8_t b;
+    uint32_t c;
+  };
+  struct S5 {
+    S1 s1;
+    S2 s2;
+  };
+  S1 s1 = {1, 2, 3};
+  S2 s2;
+  s2.a = 4;
+  s2.b = 5;
+  s2.c = 6;
+  cout << "The content of \"struct\" object \"s1\":{" << endl;
+  cout << "\ta:" << static_cast<uint32_t>(s1.a) << endl;
+  cout << "\tb:" << static_cast<uint32_t>(s1.b) << endl;
+  cout << "\tc:" << static_cast<uint32_t>(s1.c) << endl;
+  cout << "}" << endl;
+  cout << "The content of \"struct\" object \"s2\":{" << endl;
+  cout << "\ta:" << static_cast<uint32_t>(s2.a) << endl;
+  cout << "\tb:" << static_cast<uint32_t>(s2.b) << endl;
+  cout << "\tc:" << static_cast<uint32_t>(s2.c) << endl;
+  cout << "}" << endl;
+  cout << "The size of \"S1\":" << sizeof(S1) << endl;
+  cout << "The size of \"S2\":" << sizeof(S2) << endl;
+  cout << "The size of \"S3\":" << sizeof(S3) << endl;
+  cout << "The size of \"S4\":" << sizeof(S4) << endl;
+  cout << "The size of \"S5\":" << sizeof(S5) << endl;
+}
+
+void showClass() {}
 
 void showFunctions() {}
 
