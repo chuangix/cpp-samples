@@ -10,7 +10,6 @@ void showPointers();
 void showReferences();
 
 int main() {
-  cout << __FILE__ << endl;
   showBuiltIn();
   showUserDefined();
   showFunctions();

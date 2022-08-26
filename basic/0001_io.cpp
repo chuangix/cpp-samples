@@ -10,7 +10,6 @@ void echoString();
 void echoLine();
 
 int main() {
-  cout << __FILE__ << endl;
   echoCharacter();
   echoInteger();
   echoString();
