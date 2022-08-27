@@ -4,17 +4,21 @@
 using namespace std;
 
 void showBuiltIn();
-void showUserDefined();
-void showFunctions();
-void showPointers();
-void showReferences();
+void showEnumClass();
+void showVariant();
+void showStruct();
+void showFunction();
+void showPointer();
+void showReference();
 
 int main() {
   showBuiltIn();
-  showUserDefined();
-  showFunctions();
-  showPointers();
-  showReferences();
+  showEnumClass();
+  showVariant();
+  showStruct();
+  showFunction();
+  showPointer();
+  showReference();
   return 0;
 }
 
@@ -81,17 +85,7 @@ void showBuiltIn() {
        << endl;
 }
 
-void showEnum();
-void showVariant();
-void showStruct();
-void showClass();
-
-void showUserDefined() {
-  showEnum();
-  showStruct();
-}
-
-void showEnum() {
+void showEnumClass() {
   enum class E : int16_t { Red = -3, Green, Blue = 6, White };
   E red = E::Red;
   E green = E::Green;
@@ -158,10 +152,8 @@ void showStruct() {
   cout << "The size of \"S5\":" << sizeof(S5) << endl;
 }
 
-void showClass() {}
+void showFunction() {}
 
-void showFunctions() {}
+void showPointer() {}
 
-void showPointers() {}
-
-void showReferences() {}
+void showReference() {}
