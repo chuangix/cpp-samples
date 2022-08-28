@@ -26,12 +26,12 @@ void echoCharacter() {
   if (cin.bad()) {
     cout << "!! FATAL INPUT !!" << endl;
     cin.clear();
-    return;
+    abort();
   }
   if (cin.fail()) {
     cout << "!! WRONG INPUT !!" << endl;
     cin.clear();
-    return;
+    abort();
   }
   cout << "Your input is \"" << c << "\"" << endl;
 }
@@ -45,12 +45,12 @@ void echoInteger() {
   if (cin.bad()) {
     cout << "!! FATAL INPUT !!" << endl;
     cin.clear();
-    return;
+    abort();
   }
   if (cin.fail()) {
     cout << "!! WRONG INPUT !!" << endl;
     cin.clear();
-    return;
+    abort();
   }
   cout << "Your input is \"" << i << "\"" << endl;
 }
@@ -65,12 +65,12 @@ void echoString() {
   if (cin.bad()) {
     cout << "!! FATAL INPUT !!" << endl;
     cin.clear();
-    return;
+    abort();
   }
   if (cin.fail()) {
     cout << "!! WRONG INPUT !!" << endl;
     cin.clear();
-    return;
+    abort();
   }
   cout << "Your input is \"" << s << "\"" << endl;
 }
@@ -82,12 +82,12 @@ void echoLine() {
   if (cin.bad()) {
     cout << "!! FATAL INPUT !!" << endl;
     cin.clear();
-    return;
+    abort();
   }
   if (cin.fail()) {
     cout << "!! WRONG INPUT !!" << endl;
     cin.clear();
-    return;
+    abort();
   }
   cout << "Your input is \"" << l << "\"" << endl;
 }
