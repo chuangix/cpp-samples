@@ -8,7 +8,7 @@ void showEnumClass();
 void showVariant();
 void showStruct();
 void showFunction();
-void showPointer();
+void showSmartPointer();
 void showReference();
 
 int main() {
@@ -17,7 +17,7 @@ int main() {
   showVariant();
   showStruct();
   showFunction();
-  showPointer();
+  showSmartPointer();
   showReference();
   return 0;
 }
@@ -154,6 +154,6 @@ void showStruct() {
 
 void showFunction() {}
 
-void showPointer() {}
+void showSmartPointer() {}
 
 void showReference() {}
