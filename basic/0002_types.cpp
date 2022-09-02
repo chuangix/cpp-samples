@@ -5,7 +5,7 @@ using namespace std;
 
 void showBuiltIn();
 void showEnumClass();
-void showUnion();
+void showVariant();
 void showStruct();
 void showFunction();
 void showPointer();
@@ -14,7 +14,7 @@ void showReference();
 int main() {
   showBuiltIn();
   showEnumClass();
-  showUnion();
+  showVariant();
   showStruct();
   showFunction();
   showPointer();
@@ -103,7 +103,7 @@ void showEnumClass() {
   cout << "The value of \"enum\" white:" << static_cast<int16_t>(white) << endl;
 }
 
-void showUnion() {}
+void showVariant() {}
 
 void showStruct() {
   struct S1 {
