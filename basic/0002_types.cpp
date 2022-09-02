@@ -1,5 +1,7 @@
+#include <exception>
 #include <iostream>
 #include <limits>
+#include <string>
 
 #include <boost/any.hpp>
 #include <boost/optional.hpp>
@@ -107,7 +109,42 @@ void showEnumClass() {
   cout << "The value of \"enum\" white:" << static_cast<int16_t>(white) << endl;
 }
 
-void showVariant() {}
+void useGet(const boost::variant<int, string> &);
+void useRtti(const boost::variant<int, string> &);
+void useVisitor(const boost::variant<int, string> &);
+
+void showVariant() {
+  boost::variant<int, string> v = "Hello world";
+  useGet(v);
+  useRtti(v);
+  useVisitor(v);
+}
+
+void useGet(const boost::variant<int, string> &v) {
+  try {
+    cout << boost::get<int>(v) << endl;
+  } catch (exception &e) {
+    cout << e.what() << endl;
+  }
+  cout << boost::get<string>(v) << endl;
+}
+
+void useRtti(const boost::variant<int, string> &v) {
+  if (v.type() == typeid(int)) {
+    cout << boost::get<int>(v) << endl;
+  } else if (v.type() == typeid(string)) {
+    cout << boost::get<string>(v) << endl;
+  }
+}
+
+void useVisitor(const boost::variant<int, string> &v) {
+  class visitor : public boost::static_visitor<void> {
+   public:
+    void operator()(const int &i) const { cout << i << endl; }
+    void operator()(const string &str) const { cout << str << endl; }
+  };
+  boost::apply_visitor(visitor(), v);
+}
 
 void showStruct() {
   struct S1 {
