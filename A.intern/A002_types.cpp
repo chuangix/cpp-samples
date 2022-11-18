@@ -1,6 +1,7 @@
 #include <exception>
 #include <iostream>
 #include <limits>
+#include <memory>
 #include <string>
 
 #include <boost/any.hpp>
@@ -195,6 +196,193 @@ void showStruct() {
 
 void showFunction() {}
 
-void showSmartPointer() {}
+void showUniquePointer();
+void showSharedPointer();
+void showWeakPointer();
+
+void showSmartPointer() {
+  showUniquePointer();
+  showSharedPointer();
+  showWeakPointer();
+}
+
+void showUniquePointer() {}
+
+void showSharedPointer() {
+  struct St {
+    int a;
+  };
+  St st;
+  St *pst = &st;
+  cout << "The original naked pointer points 0x" << hex << pst << endl;
+  St &rst = st;
+  const St &crst = st;
+  shared_ptr<St> sp;
+  cout << "The reference count after default construction is " << sp.use_count()
+       << " and it points 0x" << hex << sp.get() << endl;
+  sp = make_shared<St>();
+  cout << "The reference count of the original shared pointer is "
+       << sp.use_count() << " and it points 0x" << hex << sp.get() << endl;
+  shared_ptr<St> &rsp = sp;
+  cout
+      << "The reference count of reference to original shared pointer [RSP] is "
+      << rsp.use_count() << " and it points 0x" << hex << rsp.get() << endl;
+  const shared_ptr<St> &crsp = sp;
+  cout << "The reference count of const reference to original shared pointer "
+          "[CRSP] is "
+       << crsp.use_count() << " and it points 0x" << hex << crsp.get() << endl;
+  shared_ptr<St> sp1CopyConstructByNakedPtr(pst);
+  cout << "The reference count of copy construction using naked pointer once "
+          "is  "
+       << sp1CopyConstructByNakedPtr.use_count() << " and it points 0x" << hex
+       << sp1CopyConstructByNakedPtr.get() << " => can be compiled but WRONG"
+       << endl;
+  shared_ptr<St> sp2CopyConstructByNakedPtr(pst);
+  cout << "The reference count of copy construction using naked pointer twice "
+          "is "
+       << sp2CopyConstructByNakedPtr.use_count() << " and it points 0x" << hex
+       << sp2CopyConstructByNakedPtr.get() << " => can be compiled but WRONG"
+       << endl;
+  shared_ptr<St> sp1CopyConstructBySharedPtr(sp);
+  cout << "The reference count of copy construction using shared pointer once "
+          "is  "
+       << sp1CopyConstructBySharedPtr.use_count() << " and it points 0x" << hex
+       << sp1CopyConstructBySharedPtr.get() << endl;
+  shared_ptr<St> sp2CopyConstructBySharedPtr(sp);
+  cout << "The reference count of copy construction using shared pointer twice "
+          "is "
+       << sp2CopyConstructBySharedPtr.use_count() << " and it points 0x" << hex
+       << sp2CopyConstructBySharedPtr.get() << endl;
+  shared_ptr<St> sp1CopyConstructByNew(new St());
+  cout << "The reference count of copy construction using \"new\" once is  "
+       << sp1CopyConstructByNew.use_count() << " and it points 0x" << hex
+       << sp1CopyConstructByNew.get() << endl;
+  shared_ptr<St> sp2CopyConstructByNew(new St());
+  cout << "The reference count of copy construction using \"new\" twice is "
+       << sp2CopyConstructByNew.use_count() << " and it points 0x" << hex
+       << sp2CopyConstructByNew.get() << endl;
+  shared_ptr<St> sp1CopyConstructByMakeShared(make_shared<St>());
+  cout << "The reference count of copy construction using \"make_shared()\" "
+          "once is  "
+       << sp1CopyConstructByMakeShared.use_count() << " and it points 0x" << hex
+       << sp1CopyConstructByMakeShared.get() << endl;
+  shared_ptr<St> sp2CopyConstructByMakeShared(make_shared<St>());
+  cout << "The reference count of copy construction using \"make_shared()\" "
+          "twice is "
+       << sp2CopyConstructByMakeShared.use_count() << " and it points 0x" << hex
+       << sp2CopyConstructByMakeShared.get() << endl;
+  shared_ptr<St> sp1AssignConstructByNakedPtr = shared_ptr<St>(pst);
+  cout << "The reference count of assign construction using naked pointer "
+          "once is  "
+       << sp1AssignConstructByNakedPtr.use_count() << " and it points 0x" << hex
+       << sp1AssignConstructByNakedPtr.get() << " => can be compiled but WRONG"
+       << endl;
+  shared_ptr<St> sp2AssignConstructByNakedPtr = shared_ptr<St>(pst);
+  cout << "The reference count of assign construction using naked pointer "
+          "twice is "
+       << sp2AssignConstructByNakedPtr.use_count() << " and it points 0x" << hex
+       << sp2AssignConstructByNakedPtr.get() << " => can be compiled but WRONG"
+       << endl;
+  shared_ptr<St> sp1AssignConstructBySharedPtr = shared_ptr<St>(sp);
+  cout << "The reference count of assign construction using shared pointer "
+          "once is  "
+       << sp1AssignConstructBySharedPtr.use_count() << " and it points 0x"
+       << hex << sp1AssignConstructBySharedPtr.get() << endl;
+  shared_ptr<St> sp2AssignConstructBySharedPtr = shared_ptr<St>(sp);
+  cout << "The reference count of assign construction using shared pointer "
+          "twice is "
+       << sp2AssignConstructBySharedPtr.use_count() << " and it points 0x"
+       << hex << sp2AssignConstructBySharedPtr.get() << endl;
+  shared_ptr<St> sp1AssignConstructByNew = shared_ptr<St>(new St());
+  cout << "The reference count of assign construction using \"new\" once is  "
+       << sp1AssignConstructByNew.use_count() << " and it points 0x" << hex
+       << sp1AssignConstructByNew.get() << endl;
+  shared_ptr<St> sp2AssignConstructByNew = shared_ptr<St>(new St());
+  cout << "The reference count of assign construction using \"new\" twice is "
+       << sp2AssignConstructByNew.use_count() << " and it points 0x" << hex
+       << sp2AssignConstructByNew.get() << endl;
+  shared_ptr<St> sp1AssignConstructByMakeShared = make_shared<St>();
+  cout << "The reference count of assign construction using \"make_shared()\" "
+          "once is  "
+       << sp1AssignConstructByMakeShared.use_count() << " and it points 0x"
+       << hex << sp1AssignConstructByMakeShared.get() << endl;
+  shared_ptr<St> sp2AssignConstructByMakeShared = make_shared<St>();
+  cout << "The reference count of assign construction using \"make_shared()\" "
+          "twice is  "
+       << sp2AssignConstructByMakeShared.use_count() << " and it points 0x"
+       << hex << sp2AssignConstructByMakeShared.get() << endl;
+  sp.reset();
+  sp = make_shared<St>();
+  shared_ptr<St> sp1;
+  shared_ptr<St> sp2;
+  shared_ptr<St> sp3;
+  shared_ptr<St> sp4;
+  shared_ptr<St> sp5;
+  cout << "The original naked pointer [P] points 0x" << hex << pst << endl;
+  cout << "The reference count of the original shared pointer [SP] is "
+       << sp.use_count() << " and it points 0x" << hex << sp.get() << endl;
+  cout << "The reference count of shared pointer [SP1] is " << sp1.use_count()
+       << " and it points 0x" << hex << sp1.get() << endl;
+  cout << "The reference count of shared pointer [SP2] is " << sp2.use_count()
+       << " and it points 0x" << hex << sp2.get() << endl;
+  cout << "The reference count of shared pointer [SP3] is " << sp3.use_count()
+       << " and it points 0x" << hex << sp3.get() << endl;
+  cout << "The reference count of shared pointer [SP4] is " << sp3.use_count()
+       << " and it points 0x" << hex << sp4.get() << endl;
+  cout << "The reference count of shared pointer [SP5] is " << sp3.use_count()
+       << " and it points 0x" << hex << sp5.get() << endl;
+  sp1 = shared_ptr<St>(pst);
+  cout << "Copy a naked pointer to a shared pointer [SP1] = [P]:" << endl;
+  cout << "The reference count of [SP1] is " << sp1.use_count()
+       << " and it points 0x" << hex << sp1.get()
+       << " => can be compiled but WRONG" << endl;
+  sp2 = shared_ptr<St>(pst);
+  cout << "Copy a naked pointer to a shared pointer [SP2] = [P]:" << endl;
+  cout << "The reference count of [SP1] is " << sp1.use_count()
+       << " and it points 0x" << hex << sp1.get()
+       << " => can be compiled but WRONG" << endl;
+  cout << "The reference count of [SP2] is " << sp2.use_count()
+       << " and it points 0x" << hex << sp2.get()
+       << " => can be compiled but WRONG" << endl;
+  sp3 = sp;
+  cout << "Copy a shared pointer to another shared pointer [SP3] = [SP]:"
+       << endl;
+  cout << "The reference count of [SP3] is " << sp3.use_count()
+       << " and it points 0x" << hex << sp3.get() << endl;
+  cout << "The reference count of [SP4] is " << sp4.use_count()
+       << " and it points 0x" << hex << sp4.get() << endl;
+  cout << "The reference count of [SP5] is " << sp5.use_count()
+       << " and it points 0x" << hex << sp5.get() << endl;
+  cout << "The reference count of the original shared pointer [SP] is "
+       << sp.use_count() << " and it points 0x" << hex << sp.get() << endl;
+  cout
+      << "The reference count of reference to original shared pointer [RSP] is "
+      << rsp.use_count() << " and it points 0x" << hex << rsp.get() << endl;
+  sp4 = rsp;
+  cout << "Copy a reference of original shared pointer to another shared "
+          "pointer [SP4] = [RSP]:"
+       << endl;
+  cout << "The reference count of [SP3] is " << sp3.use_count()
+       << " and it points 0x" << hex << sp3.get() << endl;
+  cout << "The reference count of [SP4] is " << sp4.use_count()
+       << " and it points 0x" << hex << sp4.get() << endl;
+  cout << "The reference count of [SP5] is " << sp5.use_count()
+       << " and it points 0x" << hex << sp5.get() << endl;
+  cout << "The reference count of const reference to original shared pointer "
+          "[CRSP] is "
+       << crsp.use_count() << " and it points 0x" << hex << crsp.get() << endl;
+  sp5 = crsp;
+  cout << "Copy a const reference of original shared pointer to another shared "
+          "pointer [SP5] = [CRSP]:"
+       << endl;
+  cout << "The reference count of [SP3] is " << sp3.use_count()
+       << " and it points 0x" << hex << sp3.get() << endl;
+  cout << "The reference count of [SP4] is " << sp4.use_count()
+       << " and it points 0x" << hex << sp4.get() << endl;
+  cout << "The reference count of [SP5] is " << sp5.use_count()
+       << " and it points 0x" << hex << sp5.get() << endl;
+}
+
+void showWeakPointer() {}
 
 void showReference() {}
